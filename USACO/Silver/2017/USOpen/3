@@ -1,0 +1,121 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+int grid[20][20];
+
+bool isPCL(int r1, int c1, int r2, int c2) {
+    int color[26] = {};
+    int reg = 0;
+    queue <pii> q;
+    int used[20][20] = {};
+    int dr[4] = {1,-1,0,0};
+    int dc[4] = {0,0,1,-1};
+    
+    FOR(i,r1,r2+1) {
+        FOR(j,c1,c2+1) {
+            if(used[i][j] == 0) {
+                used[i][j] = 1;
+                color[grid[i][j]] ++;
+                reg++;
+                q.push(mp(i,j));
+                while(!q.empty()) {
+                    int R= q.front().f;
+                    int C = q.front().s;
+                    used[R][C] = 1;
+                    q.pop();
+                    FOR(k,0,4)  {
+                        if (R +dr[k] >= r1 && R + dr[k] <= r2 && C+dc[k] >= c1 && C + dc[k] <= c2 && used[R+dr[k]][C+dc[k]] == 0 && grid[R+dr[k]][C+dc[k]] == grid[i][j]) {
+                            q.push(mp(R+dr[k],C+dc[k]));
+                        }
+                    }
+                }https://archive.org/details/MIT8.01F99
+            }
+        }
+    }
+    
+    int satis[2] = {};
+    FOR(i,0,26) {
+        if(color[i] == 1) satis[0] ++;
+        if (color[i] > 1) satis[1] ++;
+    }
+    if (satis[0] == 1 && satis[1] == 1) {
+        return true;}
+    
+    else return false;
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    ofstream fout("where.out");
+    ifstream fin("where.in");
+    int n; fin >> n;
+    vector < piiii > PCL;
+    FOR(i,0,n) {
+        FOR(j,0,n) {
+            char c; fin >> c;
+            grid[i][j] = c - 'A';
+        }
+    }
+    
+    
+    
+    FOR(r1,0,n) {
+        FOR(c1,0,n) {
+            FOR(r2,r1,n) {
+                FOR(c2,c1,n) {
+                    if (isPCL(r1,c1,r2,c2)) {
+                        PCL.pb(mp(mp(r1,c1),mp(r2,c2)));
+                    }
+                }
+            }
+        }
+    }
+    int count = 0;
+    FOR(i,0,PCL.size()) {
+        FOR(j,0,PCL.size()) {
+            if(i != j && PCL[i].f.f >= PCL[j].f.f && PCL[i].f.s >= PCL[j].f.s  && PCL[i].s.f <= PCL[j].s.f && PCL[i].s.s <= PCL[j].s.s ) {count ++; j = PCL.size();}
+        }
+    }
+    fout << PCL.size() - count;
+    fin.close();
+    fout.close();
+}
