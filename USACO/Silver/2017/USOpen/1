@@ -1,0 +1,66 @@
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    ofstream fout("pairup.out");
+    ifstream fin("pairup.in");
+    pii milk[100000];
+    int n; fin >> n;
+    FOR(i,0,n) {
+        int x,y; fin >> x >> y;
+        milk[i] = mp(y,x);
+    }
+    sort(milk,milk + n);
+    int low = 0, high = n-1;
+    int maxmilk = 0;
+    while (low  <=  high) {
+        maxmilk = max(maxmilk, milk[low].f + milk[high].f);
+        if (milk[low].s <= milk[high].s) {
+            milk[high].s -= milk[low].s;
+            milk[low].s = 0;
+        }
+        else if (milk[low].s > milk[high].s) {
+            milk[low].s -= milk[high].s;
+            milk[high].s = 0;
+        }
+        
+        if (milk[low].s == 0) low ++;
+        if (milk[high].s == 0) high --;
+    }
+    fout << maxmilk;
+    
+    
+    fin.close();
+    fout.close();
+}
