@@ -34,7 +34,7 @@ typedef pair<int, int> pii;
 #define pb push_back
 #define f first
 #define s second
-
+ 
 const int MOD = 1000000007;
 double PI = 4*atan(1);
 
