@@ -64,7 +64,7 @@ int main() {
           if (subword.length() > 0){ words.insert(subword);}
           subword = "";
           
-        }
+        } 
       }
     }
     for(auto word : words) {
