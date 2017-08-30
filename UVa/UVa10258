@@ -1,0 +1,99 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+ 
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <sstream>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+ 
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+ 
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+ 
+#define endl '\n';
+ 
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+ 
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+ 
+bool comp(piii a, piii b) {
+   if (a.f.f != b.f.f) return a.f.f > b.f.f;
+   else {
+     if (a.f.s != b.f.s) return a.f.s < b.f.s;
+     else return a.s < b.s;
+   }
+ 
+}
+ 
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    int t; cin >> t;
+    FOR(i,0,t) {
+      piii scores[101];
+      int problems[10][101] = {};
+      int att[101] = {};
+      FOR(i,1,101) {
+        scores[i] = mp(mp(0,0),i);   //solved, penalty, team #
+      }
+      string line;
+ 
+      if(i==0)      { getline(cin,line); getline(cin,line);}
+      getline(cin,line);
+      while(line != "") {
+      	istringstream iss(line);
+      	int t; iss >> t;
+      	int p; iss >> p;
+      	int ti; iss >> ti;
+      	char r; iss >> r;
+      	att[t] = 1;
+      	if (r == 'C') {
+	    if(problems[p][t] >= 0) {scores[t].f.f ++;
+	    scores[t].f.s += ti + 20*problems[p][t];
+	    problems[p][t] = -11312;}
+      	}
+      	else if(r == 'I') {
+                 problems[p][t] ++;
+      	}
+      	getline(cin,line);
+      }
+      sort(scores,scores+101,comp);
+      FOR(i,0,101) {
+          if(att[scores[i].s]) {
+      	  cout << scores[i].s <<" " << scores[i].f.f << " " << scores[i].f.s << endl;  
+         }
+      }
+      if(i != t-1) cout << endl;
+    }
+    // fin.close();
+    //  fout.close();
+}
