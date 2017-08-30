@@ -1,0 +1,91 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    ofstream fout("moocast.out");
+    ifstream fin("moocast.in");
+    int cow[200][3] = {};
+    int n; fin >> n;
+    FOR(i,0,n) {
+        fin >> cow[i][0] >> cow[i][1] >> cow[i][2];
+    }
+    int grid[200][200] = {};
+    FOR(i,0,n) {
+        FOR(j,i+1,n) {
+            int dx = cow[i][0] - cow[j][0];
+            int dy = cow[i][1] - cow[j][1];
+            if (dx*dx + dy*dy <= cow[i][2]*cow[i][2]) {
+                grid[i][j] = 1;
+            }
+            if (dx*dx + dy*dy <= cow[j][2]*cow[j][2]) {
+                grid[j][i] = 1;
+            }
+        }
+    }
+    int maxcount = 0;
+    FOR(i,0,n) {
+        int visited[200] = {};
+        visited[i] = 1;
+        
+        int count = 0;
+        queue <int> q;
+        q.push(i);
+        count ++;
+        while(!q.empty()) {
+            int x= q.front();
+            q.pop();
+            FOR(j,0,n) {
+                if (grid[x][j] == 1 && visited[j] == 0){
+                    visited[j] = 1;
+                    q.push(j);
+                    count++;
+                }
+            }
+        }
+        maxcount = max(maxcount,count);
+    }
+    fout << maxcount;
+    fin.close();
+    fout.close();
+}
+
