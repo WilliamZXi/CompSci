@@ -1,0 +1,75 @@
+//
+//  main.cpp
+//  USACO2016JanSilver2
+//
+//  Created by William Xi on 7/26/17.
+//  Copyright © 2017 William Xi. All rights reserved.
+//
+#include <iostream>
+#include <algorithm>
+#include <fstream>
+using namespace std;
+
+int haybales;
+int cows;
+int coords[50000] = {};
+
+bool is_good(int r) {
+    int currdist = 0;
+    int currind = 0;
+    
+    
+    for (int i = 0; i < cows; i++) {
+        
+        currdist = coords[currind] + 2 * r;
+        if (currdist >= coords[haybales-1]) {
+            return true;
+        }
+        for (int j = currind + 1; j < haybales; j++) {
+            if (coords[j] > currdist) {
+                currind = j;
+                break;
+            }
+        }
+    }
+    
+    return false;
+}
+
+
+int main() {
+    
+    ifstream fin;
+    ofstream fout;
+    fin.open("angry.in");
+    fout.open("angry.out");
+    fin >> haybales >> cows;
+    for (int i = 0; i < haybales; i++) {
+        fin >> coords[i];
+    }
+    sort(coords,coords+haybales);
+    
+    int max = 500000000;
+    int min = 0;
+    int mid = 250000000;
+    int temp = mid;
+    
+    while(min != max) {
+        if (is_good(mid)) {
+            temp = mid;
+            max = mid;
+            mid = (min+max)/2;
+        }
+        else {
+            min = mid + 1;
+            mid = (min + max)/2;
+            
+        }
+        //  cout << min << ' ' << mid << ' ' << max << endl;
+    }
+    
+    fout << temp; 
+    fin.close();
+    fout.close();
+    
+}
