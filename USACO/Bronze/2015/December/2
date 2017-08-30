@@ -1,0 +1,85 @@
+
+/*
+ ID: swagchicken1
+ PROG: namenum
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+#define endl '\n'
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+char grid[50][50];
+int R,C;
+bool isv(int r, int c) {
+    if (r < R-2 && grid[r][c] == '.' && (r==0 || grid[r-1][c] == '#') && grid[r+1][c] == '.' && grid[r+2][c] == '.') return true;
+    return false;
+}
+
+bool ish(int r, int c) {
+    if (c < C-2 && grid[r][c] == '.' && (c==0 || grid[r][c-1] == '#') && grid[r][c+1] == '.' && grid[r][c+2] == '.') return true;
+    return false;
+}
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    ofstream fout("crosswords.out");
+    ifstream fin("crosswords.in");
+    fin >> R >> C;
+    
+    FOR(i,0,R) {
+        FOR(j,0,C) {
+            fin >> grid[i][j];
+        }
+    }
+    int labelpos[2500][2] = {};
+    int count = 0;
+    FOR(i,0,R) {
+        FOR(j,0,C) {
+            if(isv(i,j) || ish(i,j)) {
+                labelpos[count][0] = i;
+                labelpos[count][1] = j;
+                count ++;
+            }
+        }
+    }
+    fout << count << endl;
+    FOR(i,0,count) {
+        fout << labelpos[i][0] + 1 << ' ' << labelpos[i][1] + 1<< endl;
+    }
+    
+    
+    
+    
+    fin.close();
+    fout.close();
+}
