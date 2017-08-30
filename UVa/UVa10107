@@ -1,0 +1,71 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    vi v;
+    int n;
+    int c = 0;
+    while (while cin >> n) {
+      v.pb(n);
+      c++;
+      if (c%2 == 1) {
+        nth_element(v.begin(), v.begin() + c/2,v.end());
+        cout << v[c/2] << endl;
+      }
+      else {
+                nth_element(v.begin(), v.begin() + c/2,v.end());
+                int a1 = v[c/2];
+        nth_element(v.begin(), v.begin() + c/2-1,v.end());
+        int a2 = v[c/2-1];
+        cout << (a1+a2)/2 << endl;
+      }
+    }
+    // fin.close();
+    //  fout.close();
+}
+
