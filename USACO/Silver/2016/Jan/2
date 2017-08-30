@@ -1,0 +1,56 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int main() {
+    ifstream fin;
+    ofstream fout;
+    fin.open("div7.in");
+    fout.open("div7.out");
+    
+    int N = 0;
+    fin >> N;
+    int list[50000];
+    for (int i = 0; i < N; i ++){
+        int x = 0;
+        fin >> x;
+        list[i] = x%7;
+    }
+    
+    int long_chain = 0;
+    int sumlist[50000];
+    int sum = 0;
+    for (int i = 0; i < N; i ++) {
+        sum += list[i];
+        sumlist[i] = sum%7;
+    }
+    
+    for (int i = 0 ; i <7; i ++){
+        int small = 0;
+        int large = 0;
+        for (int k = 0; k <N; k ++) {
+            if (sumlist[k] == i){
+                small = k;
+                break;
+            }
+        }
+        for (int k = N-1 ; k >= 0; k --) {
+            if (sumlist[k] == i){
+                large= k;
+                break;
+            }
+        }
+        
+        if (large-small > long_chain){
+            long_chain = large - small;
+        }
+        
+    }
+    
+    fout << long_chain;
+    
+    fin.close();
+    fout.close();
+    
+    
+}
