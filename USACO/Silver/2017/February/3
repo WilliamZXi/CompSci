@@ -1,0 +1,115 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef pair<int, int> pii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+      ofstream fout("countcross.out");
+      ifstream fin("countcross.in");
+    int n,k,r; fin >> n >> k >> r;
+    char grid[200][200] = {};
+    RFOR(y,2*n,1) {
+        FOR(x,1,2*n) {
+            grid[x][y] = '.';
+        }
+    }
+    FOR(i,0,r) {
+        int x1,y1,x2,y2; fin >> x1 >> y1 >> x2 >> y2;
+        if (x1 == x2) {
+            grid[2*x1-1][y1 + y2 - 1] = '*';
+            grid[2*x1-2][y1 + y2 - 1] = '*';
+            grid[2*x1][y1 + y2 - 1] = '*';
+        }
+        if (y1 == y2) {
+            grid[x1+x2 - 1][2*y1 - 1] = '*';
+            grid[x1+x2 - 1][2*y1] = '*';
+            grid[x1+x2 - 1][2*y1 - 2] = '*';
+        }
+    }
+    
+    FOR(i,0,k) {
+        int x1,y1; fin >> x1 >> y1;
+        grid[2*x1-1][2*y1-1] = 'C';
+    }
+    
+    int numreg =0;
+    int ccount[200000] = {};
+    int dx[4] = {1,-1,0,0};
+    int dy[4] = {0,0,1,-1};
+    
+    FOR(y,1,2*n){
+        FOR(x,1,2*n){
+            if(grid[x][y] != '*' && grid[x][y] != '#') {
+                numreg ++ ;
+                queue <pii> q;
+                q.push(mp(x,y));
+                if (grid[x][y] == 'C') ccount[numreg] ++;
+                grid[x][y] ='#';
+                while (q.size() != 0) {
+                    int x1 = q.front().f;
+                    int y1 = q.front().s;
+                    q.pop();
+                    
+                    FOR(i,0,4) {
+                        if (x1+dx[i] >= 1 && y1+dy[i] >= 1 && x1 + dx[i] < 2*n && y1 + dy[i] < 2*n && grid[x1+dx[i]][y1+dy[i]] != '#' && grid[x1+dx[i]][y1+dy[i]] != '*' ){
+                            if (grid[x1+dx[i]][y1+dy[i]] == 'C') ccount[numreg] ++;
+                            grid[x1+dx[i]][y1+dy[i]] = '#';
+                            q.push(mp(x1+dx[i],y1 + dy[i]));
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    int sum = 0;
+    FOR(i,1,numreg+1){
+        FOR(j,i+1,numreg+1) {
+            sum += ccount[i] * ccount[j];
+        }
+    }
+    fout << sum;
+    fin.close();
+    fout.close();
+}
+
