@@ -1,0 +1,72 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    string f;
+    cin >> f;
+    priority_queue<piii> pq;
+    while(f!= "#") {
+      int x,y; cin >> y >> x;
+      pq.push(mp(mp(-x,-y),x));
+      cin >> f;
+    }
+    int k; cin >> k;
+    FOR(i,0,k) {
+      int a = pq.top().f.f;
+      int b = pq.top().f.s;
+      int c = pq.top().s;
+      pq.pop();
+      cout << -b << endl;
+      pq.push(mp(mp(a-c,b),c));
+    }
+    // fin.close();
+    //  fout.close();
+}
+
