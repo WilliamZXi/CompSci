@@ -85,7 +85,7 @@ int main() {
                  problems[p][t] ++;
       	}
       	getline(cin,line);
-      }
+      } 
       sort(scores,scores+101,comp);
       FOR(i,0,101) {
           if(att[scores[i].s]) {
