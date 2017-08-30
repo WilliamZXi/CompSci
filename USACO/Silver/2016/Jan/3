@@ -1,0 +1,48 @@
+//
+//  main.cpp
+//  USACO2016JanSilver3
+//
+//  Created by William Xi on 7/26/17.
+//  Copyright © 2017 William Xi. All rights reserved.
+//
+
+#include <iostream>
+#include <map>
+#include <fstream>
+using namespace std;
+int field[2001][2001];
+int main() {
+    ifstream fin;
+    ofstream fout;
+    fin.open("gates.in");
+    fout.open("gates.out");
+    int N;
+    fin >> N;
+    int regions = 0;
+    
+    field[1000][1000] = 1;
+    
+    map < char, pair <int, int> > dir;
+    dir['N'] = make_pair(0,1); dir['E'] = make_pair(1,0); dir['S'] = make_pair(0,-1); dir['W'] = make_pair(-1,0);
+    map <char, char> opp;
+    opp['N'] = 'S'; opp['E'] = 'W'; opp['S'] ='N'; opp['W'] = 'E';
+    int x = 1000, y = 1000 ;
+    char prevd = ' ' ;
+    for (int i = 0 ; i < N ; i++) {
+        char d;
+
+        fin >> d;
+        
+        x += dir[d].first;
+        y += dir[d].second;
+        field[x][y] += 1;
+        //  cout << x-1000 << ' ' << y-1000 << ' ' << field[x][y]  << endl;
+        if (field[x][y] == 2 && d != opp[prevd]) {
+            regions ++;
+        }
+        prevd = d;
+    }
+    fout << regions;
+    fin.close();
+    fout.close();
+}
