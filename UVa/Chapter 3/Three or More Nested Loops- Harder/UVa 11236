@@ -46,8 +46,12 @@ double PI = 4*atan(1);
 string toc( ll x) {
   string st = to_string(x);
   if (x>=100) {return st.insert(st.length() - 2,".");}
-  else {
+  else if (x < 100 && x >= 10) {
     string begin = "0.";
+    return begin + st;
+  }
+  else {
+    string begin  = "0.0" ;
     return begin + st;
   }
 }
