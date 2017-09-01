@@ -1,0 +1,73 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    int n; cin >> n;
+    while(n!=0) {
+      int nums[50] = {};
+      FOR(i,0,n) {cin >> nums[i];}
+      FOR(a1,0,n-5) {
+        FOR(a2,a1+1,n-4){
+          FOR(a3,a2+1,n-3) {
+            FOR(a4,a3+1,n-2) {
+              FOR(a5,a4+1,n-1) {
+                FOR(a6,a5+1,n) {
+                  cout << nums[a1] << ' ' << nums[a2] << ' ' << nums[a3] << ' ' << nums[a4] << ' ' << nums[a5] << ' ' << nums[a6] << endl;
+                }
+              }
+            }
+          }
+        }
+      }
+      cin >> n;
+      if (n!=0) cout << endl;
+    }
+    // fin.close();
+    //  fout.close();
+}
+
