@@ -43,6 +43,15 @@ typedef pair < pair <int, int > , pair <int, int> > piiii;
 const int MOD = 1000000007;
 double PI = 4*atan(1);
 
+string toc( ll x) {
+  string st = to_string(x);
+  if (x>=100) {return st.insert(st.length() - 2,".");}
+  else {
+    string begin = "0.";
+    return begin + st;
+  }
+}
+
 int main() {
     ios_base::sync_with_stdio(0);cin.tie(0);
     //  ofstream fout("");
@@ -57,7 +66,7 @@ int main() {
           
           
          if ((s*1000000) % (p-1000000) == 0) {
-            if (a+b+c+d <= 2000 && d >= c) cout << a << ' ' << b << ' ' << c << ' ' << d << endl;
+            if (a+b+c+d <= 2000 && d >= c) cout << toc(a) << ' ' << toc(b) << ' ' << toc(c) << ' ' << toc(d) << endl;
           }
         }
       }
