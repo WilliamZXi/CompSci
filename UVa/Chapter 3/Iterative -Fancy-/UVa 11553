@@ -1,0 +1,90 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int grid[8][8];
+int used[8] = {};
+int perm[8] = {};
+int maxvalue = MOD;
+int recurse(int n, int depth) {
+  if(depth == n) {
+    int cost = 0;
+    FOR(i,0,n) {
+      cost += grid[i][perm[i]];
+    }
+    maxvalue = min(maxvalue, cost);
+    return maxvalue;
+  }
+  FOR(i,0,n) {
+    if (used[i] == 0) {
+      used[i] = 1;
+      perm[depth] = i;
+      recurse(n,depth + 1);
+      used[i] = 0;
+     }
+     
+  }
+     
+  return maxvalue;
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    int t; cin >> t;
+    FOR(i,0,t) {
+      int n; cin >> n;
+      maxvalue  = MOD;
+      FOR(j,0,n) {
+        FOR(k,0,n) {
+          cin >> grid[j][k];
+        }
+      }
+      cout << recurse(n,0) << endl;
+    }
+    // fin.close();
+    //  fout.close();
+}
+
