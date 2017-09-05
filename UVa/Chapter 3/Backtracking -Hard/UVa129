@@ -1,0 +1,102 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int n,l,c;
+bool found = false;
+
+bool good(string s) {
+  bool bad = false;
+  FOR(i,1,s.length()/2  + 1) {
+    if ( s.substr(s.length() - i, i ) == s.substr(s.length() - 2*i, i ) ) {bad = true; break;}
+  }
+  return (!bad); 
+}
+
+void recurse(string s) {
+  
+  if (c == n) {
+    found = true;
+
+    FOR(i,0,s.length()) {
+            if (i == 64) cout << endl;
+      cout << s[i];
+
+      if (i%4 == 3 && i != s.length()-1 && i != 63) cout << ' ';
+
+    }
+    cout << endl;
+        cout << s.length() << endl;
+  }
+  
+  for( char i = 'A' ; i < 'A' + l; i++) {
+    s += i;
+    if(good(s) && found == false) {
+      c ++;
+    recurse(s);
+    }
+    s = s.substr(0,s.length() - 1);
+  }
+  
+  
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+   
+
+    cin >> n >> l;
+    while(n!= 0 && l != 0) {
+      c = 0;
+      found = false;
+      recurse("");
+      cin >> n >> l;
+      
+    }
+    // fin.close();
+    //  fout.close();
+}
+
