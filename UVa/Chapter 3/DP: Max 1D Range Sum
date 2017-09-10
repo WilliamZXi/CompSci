@@ -1,0 +1,88 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    int t; cin >> t;
+    FOR(i,0,t) {
+      int s; cin >> s;
+      int sum = 0;
+      int ans = 0;
+      int id[20000] = {};
+      int sums[20000] ={};
+      int startid = 0;
+      FOR(j,0,s-1) {
+        int nice;
+        cin >> nice;
+        sum += nice;
+        if (sum < 0) {
+          sum = 0;
+          startid = j+1;
+        }
+        sums[j] = sum;
+        id[j] = startid;
+        ans = max(ans,sum);
+
+      }
+
+      
+      if(ans == 0){ cout << "Route " << i+1<< " has no nice parts" << endl;}
+      else {
+        int k = 0;
+        int longest = -1;
+        FOR(j,0,s-1) {
+          if(sums[j] == ans && j - id[j] > longest){ k = j; longest = j - id[j];}
+        }
+        cout << "The nicest part of route " << i+1<< " is between stops " << id[k] + 1 <<" and " << k+ 2<< endl;
+      }
+      
+      
+    }
+    // fin.close();
+    //  fout.close();
+}
+
