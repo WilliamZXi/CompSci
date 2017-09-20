@@ -1,0 +1,104 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    int n,m,s;
+    cin >> n >> m >> s;
+    while(n != 0 && m != 0 && s != 0) {
+      int rstart = 0, cstart = 0; int dir = 0;
+      pii dirs[4] = {{-1,0},{0,1},{1,0},{0,-1}};  // N E S W
+      char grid[110][110];
+      FOR(i,0,n) {
+        FOR(j,0,m) {
+          cin >> grid[i][j];
+          if(grid[i][j] == 'N') {
+            rstart = i; cstart = j; dir = 0;
+          }
+          if(grid[i][j] == 'S') {
+            rstart = i; cstart = j; dir = 2;
+          }
+          if(grid[i][j] == 'L') {
+            rstart = i; cstart = j; dir = 1;
+          }
+          if(grid[i][j] == 'O') {
+            rstart = i; cstart = j; dir = 3;
+          }
+        }
+      }
+      int stamps = 0;
+      FOR(i,0,s) {
+        char com; cin >> com;
+        if(com == 'D') {
+          dir += 1; dir %= 4;
+        }
+        if(com == 'E') {
+          dir += 3; dir %= 4;
+        }
+        if(com == 'F') {
+          int rnext = rstart + dirs[dir].f;
+          int cnext = cstart + dirs[dir].s;
+          if(rnext >= 0 && rnext < n && cnext >= 0 && cnext < m && grid[rnext][cnext] != '#') {
+            rstart = rnext;
+            cstart = cnext;
+            if (grid[rstart][cstart] == '*') {
+              stamps ++;
+              grid[rstart][cstart] = '.';
+            }
+          }
+        }
+      }
+      cout << stamps << endl;
+      cin >> n >> m >> s;
+      
+    }
+    
+    // fin.close();
+    //  fout.close();
+}
+
