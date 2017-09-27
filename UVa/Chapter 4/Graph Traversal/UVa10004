@@ -1,0 +1,90 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int n;
+vvi adjlist(210);
+int vcol[210] = {};
+bool bicol = true;
+
+void recurse(int v, int c) {
+  vcol[v] = c;
+  FOR(i,0,adjlist[v].size()) {
+    if (vcol[adjlist[v][i]] == -1) {
+      recurse(adjlist[v][i], (c+1)%2);
+    }
+    else {
+      if (vcol[adjlist[v][i]] == c) {
+        bicol = false;
+      }
+    }
+  }
+  return;
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+    //  ofstream fout("");
+    //  ifstream fin("");
+    cin >> n;
+    while(n!= 0) {
+      bicol = true;
+      int e; cin >> e;
+      FOR(i,0,210) {
+        adjlist[i] = {};
+      }
+      FOR(i,0,e) {
+        int a,b; cin >> a >> b;
+        adjlist[a].pb(b);
+      }
+      memset(vcol,-1,sizeof vcol);
+      recurse(0,0);
+      cout << ((bicol) ? "BICOLORABLE." : "NOT BICOLORABLE.") << endl;
+      cin >> n;
+    }
+    // fin.close();
+    //  fout.close();
+}
+
