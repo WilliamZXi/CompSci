@@ -61,23 +61,30 @@ int main() {
     
     int dist = 0;
     FOR(i,0,n-1) {
-      //right
-      int Rpre = 0;
-      FOR(j, i + 1, n) {
-        Rpre = max(Rpre, hb[j].s + 1 - (hb[j].f - hb[i+1].f) );
-      }
       
-      //left
-      int Lpre = 0;
-      FOR(j, 0 , i + 1) {
-        Lpre = max(Lpre, hb[j].s + 1 - (hb[i].f - hb[j].f) );
+      int eng = hb[i+1].f - hb[i].f;
+      int l = i, r = i+1;
+      while( l != -1 && r != n) {
+        eng = hb[r].f - hb[l].f;
+        if(eng <= hb[l].s && eng <= hb[r].s) {
+          break;
+        }
+        else {
+          if(eng > hb[l].s) {
+            l--;
+         }
+          if(eng > hb[r].s) {
+            r++;
+          }
+        }
       }
-      if (Rpre > hb[i+1].f - hb[i].f && Lpre > hb[i+1].f - hb[i].f) {dist += hb[i+1].f - hb[i].f;}
+      if (r != n && l != -1) {dist += hb[i+1].f - hb[i].f;}
+      
     }
     fout << dist << endl;
     
 
-     fin.close();
-      fout.close();
+    fin.close();
+    fout.close();
 }
 
