@@ -1,0 +1,133 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype> 
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair <int, pair < int, int >> piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int arr[10000], N, size[10000];
+
+void init(int arr[], int N) {
+  FOR(i,0,N){arr[i] = i; 
+  size[i]  = 1;}
+  return;
+}
+
+int root(int arr[], int i) {
+  while(i != arr[i]) {
+    arr[i] = arr[arr[i]];
+    i = arr[i];
+  }
+  return i;
+}
+
+bool same(int arr[], int A, int B) {
+  return root(arr,A) == root(arr,B);
+}
+
+
+void unionset(int arr[], int A, int B) {
+  int rootA = root(arr, A);
+  int rootB = root(arr, B);
+  if(size[rootA] <= size[rootB]) {
+    arr[rootA] = arr[rootB];
+    size[rootB] += size[rootA];
+  }
+  else {
+    arr[rootB] = arr[rootA];
+    size[rootA] += size[rootB];
+  }
+  return;
+} 
+
+void printarr(int arr[], int N) {
+  FOR(i,0,N) {
+    cout << arr[i] << ' ';
+  }
+  cout << endl;
+}
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+ //     ofstream fout("trapped.out");
+//      ifstream fin("trapped.in");
+    int V, c = 0;
+    while(cin >> V){
+      if(c!= 0) cout << endl;
+      vector < piii > edgelist; // weight, two vertices
+      int prevcost = 0;
+      FOR(i,0,V-1) {
+        int w,a,b;
+        cin >> a >> b >> w;
+        prevcost += w;
+      }
+      cout << prevcost << endl;
+      int K; cin >> K;
+      FOR(i,0,K) {
+        int w,a,b;
+        cin >> a >> b >> w;
+        edgelist.pb(mp(w,mp(a,b)));
+      }
+      int M; cin >> M;
+      FOR(i,0,M) {
+        int w,a,b;
+        cin >> a >> b >> w;
+        edgelist.pb(mp(w,mp(a,b)));
+      }
+      sort(edgelist.begin(), edgelist.end());
+      int min_cost = 0;
+      init(arr,M+K);
+      FOR(i,0,M+K) {
+        piii front = edgelist[i];
+        if(!same(arr,front.s.f,front.s.s)) {
+          min_cost += front.f;
+          unionset(arr, front.s.f, front.s.s);
+        }
+      }
+      cout << min_cost << endl;
+      c++;
+    }
+  //  fin.close();
+//    fout.close();
+}
+
