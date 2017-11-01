@@ -1,0 +1,87 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+ //     ofstream fout("trapped.out");
+//      ifstream fin("trapped.in");
+ int a,b,c,d,e,f;
+ cin >> a >> b >> c >> d >> e >> f;
+ int sum = a+b+c+d+e+f;
+ while(sum != 0) {
+   int nbox = 0;
+   nbox += f;
+   nbox += e;
+   a = a - 11*e;
+   nbox += d;
+//   int brem = (5 - (b%5))%5;
+    b =  b - 5*d;
+ //  if (d > 0) {a = max(0, a - 4 * brem);}
+   int crem = (4 - (c%4))%4;
+   nbox += (c+3)/4;
+   if(crem != 0) {
+    b = b - 2 * crem +1;
+    a -= crem+4;
+   }
+   if ( b > 0) {
+     nbox += (b+8)/9; 
+    b -= 9*((b+8)/9);
+     
+   }
+   if ( b < 0 ) {
+     a += 4*b;
+   }
+   if ( a> 0) {nbox += (a+35)/36;}
+   cout << nbox << endl;
+   
+   cin >> a >> b >> c >> d >> e >> f;
+   sum = a+b+c+d+e+f;
+ }
+ 
+  //  fin.close();
+//    fout.close();
+}
+
