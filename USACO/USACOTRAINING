@@ -1,0 +1,234 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+*/
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+#include <climits>
+
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+const double EPS = 1e-6;
+double PI = 4*atan(1);
+
+int n; 
+int board1[10][10] = {};
+int tboard[10][10] = {};
+int board2[10][10] = {};
+
+void rot90() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[n - 1 - j][i];
+    }
+  }
+}
+
+void rot180() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[n - 1 - i][n - 1 - j];
+    }
+  }
+}
+
+void rot270() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[j][n - 1 - i];
+    }
+  }
+}
+
+void reflect() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[i][ n - 1 - j];
+    }
+  }
+}
+
+void vreflect(){
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[n-1- i][j];
+    }
+  }
+}
+
+void diag1(){
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[j][i];
+    }
+  }
+}
+
+void diag2(){
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[n-1- j][ n - 1 - i];
+    }
+  }
+}
+
+void reset() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      tboard[i][j] = board1[i][j];
+    }
+  }
+}
+
+bool same() {
+  bool sameboard = true;
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      if(board2[i][j] != tboard[i][j]) {
+        sameboard = false;
+      }
+    }
+  }
+  return sameboard;
+}
+
+void printboard() {
+  FOR(i,0,n) {
+    FOR(j,0,n) {
+      cout << tboard[i][j];
+    }
+    cout << endl;
+  }
+}
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+      //  ofstream fout("barnpainting.out");
+    //       ifstream fin("barnpainting.in");
+    cin >> n;
+    FOR(i,0,n) {
+      FOR(j,0,n) {
+        char c; cin >> c;
+        if(c == '@'){board1[i][j] = 1;}
+        else {board1[i][j] = 0;}
+      }
+    }
+    FOR(i,0,n) {
+      FOR(j,0,n) {
+        char c; cin >> c;
+        if(c == '@'){board2[i][j] = 1;}
+        else {board2[i][j] = 0;}
+      }
+    }
+    
+    
+    bool done = false;
+    // #1
+    if(!done) {
+      rot90();
+      if(same()) {
+        cout << 1 << endl;
+        done = true;
+      }
+    }
+    reset();
+    // #2
+    if(!done) {
+      rot180();
+      if(same()) {
+        cout << 2 << endl;
+        done = true;
+      }
+    }    
+    reset();
+    // #3
+    if(!done) {
+      rot270();
+      if(same()) {
+        cout << 3 << endl;
+        done = true;
+      }
+    }  
+    reset();
+    // #4
+    if(!done) {
+      reflect();
+      if(same()) {
+        cout << 4 << endl;
+        done = true;
+      }
+    }
+    reset();
+    //#5
+    if(!done) {
+      diag1();
+      if(same()) {
+        cout << 5 << endl;
+        done = true;
+      }
+      reset();
+      diag2();
+      if(same()) {
+        cout << 5 << endl;
+        done = true;
+      }
+      reset();
+      vreflect();
+      if(same()) {
+        cout << 5 << endl;
+        done = true;
+      }
+    }
+    reset();
+    //#6
+    if(!done) {
+      if(same()) {
+        cout << 6 << endl;
+        done = true;
+      }
+    }
+    // #7 
+    if(!done) {
+      cout << 7 << endl;
+      done = true;
+    }
+//     fin.close();
+  //  fout.close();
+}
+
