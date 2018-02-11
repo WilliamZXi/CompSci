@@ -1,0 +1,82 @@
+/*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+*/
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+#include <climits>
+
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+const double EPS = 1e-6;
+double PI = 4*atan(1);
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+      //  ofstream fout("barnpainting.out");
+    //       ifstream fin("barnpainting.in");
+    int N; cin >> N;
+    int arr[101][101] = {};
+    FOR(i,1,N+1) {
+      FOR(j,1,N+1) {
+        cin >> arr[i][j];
+        arr[i][j] += arr[i][j-1];
+      }
+    }
+    
+    int ans = - MOD;
+    FOR(l,1, N + 1) {
+      FOR(r, l, N + 1) {
+        int sum = 0;
+        FOR(row, 1, N+1) {
+          sum += arr[row][r] - arr[row][l-1];
+          if(sum < 0) {
+            sum = 0;
+          }
+          ans = max(ans,sum);
+        }
+      }
+    }
+    cout << ans << endl;
+    
+//     fin.close();
+  //  fout.close();
+}
+
