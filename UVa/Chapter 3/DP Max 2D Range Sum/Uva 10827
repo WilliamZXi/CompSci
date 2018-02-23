@@ -1,0 +1,114 @@
+ /*
+ ID: swagchicken1
+ PROG:
+ LANG: C++11
+ */
+
+#include <iostream>
+#include <tuple>
+#include <cmath>
+#include <string>
+#include <cstring>
+#include <vector>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <map>
+#include <unordered_map>
+#include <set>
+#include <algorithm>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+#include <ctime>
+#include <cctype>
+using namespace std;
+
+typedef long long ll;
+typedef vector<int> vi;
+typedef vector< vector <int> > vvi;
+typedef pair<int, int> pii;
+typedef pair < pair < int, int >, int > piii;
+typedef pair < pair <int, int > , pair <int, int> > piiii;
+
+#define FOR(i,a,b) for(int i = a; i < b; i ++)
+#define RFOR(i,a,b) for(int i = a-1; i >= b; i --)
+
+#define endl '\n';
+
+#define mp make_pair
+#define pb push_back
+#define f first
+#define s second
+
+const int MOD = 1000000007;
+double PI = 4*atan(1);
+
+
+
+int main() {
+    ios_base::sync_with_stdio(0);cin.tie(0);
+     //ofstream fout("lightson.out");
+     //ifstream fin("lightson.in");
+     
+     int n; cin >> n;
+     FOR(i,0,n) {
+       int d; cin >> d;
+       int arr[300][300] = {};
+       FOR(j,0,d) {
+         FOR(k,0,d) {
+           cin >> arr[j][k];
+         }
+       }
+       
+       FOR(j,0,2*d) {
+         FOR(k,0,2*d) {
+           arr[j][k] = arr[j%d][k%d];
+         }
+       }
+       
+       FOR(j,0,2*d) {
+         FOR(k,0,2*d) {
+           if(k > 0) {
+             arr[j][k]  += arr[j][k-1];
+           }
+         }
+       }
+       
+  /*     FOR(j,0,2*d) {
+         FOR(k,0,2*d) {
+           cout << arr[j][k] << ' ';
+         }
+         cout << endl;
+       } */
+       int ans = -MOD;
+       int sum = 0;
+       
+       FOR(l,0,d) {
+         FOR(r,l,l+d) {
+           FOR(h1,0,d){
+           sum = 0;
+             FOR(h2,h1,h1+d) {
+               if(l == 0) {
+                 sum += arr[h2][r];
+               }
+               else {
+                 sum += arr[h2][r] - arr[h2][l-1];
+               }
+               ans = max(ans,sum);
+           //    cout << r << ' ' << l << ' ' <<ans << endl;
+               if(sum < 0) {
+                 sum = 0;
+               }
+             }
+           }
+         }
+       }
+       
+       cout << ans << endl;
+       
+     }
+
+//   fin.close();
+  // fout.close();
+}
